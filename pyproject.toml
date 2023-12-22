@@ -59,6 +59,9 @@
         types-pyyaml        = "^6.0.12.12"
         types-requests      = "^2.31.0.10"
 
+[tool.poetry.scripts]
+    ycast = "ycast.__main__:launch_server"
+
 [build-system]
     build-backend = "poetry.core.masonry.api"
     requires      = ["poetry-core"]

@@ -21,7 +21,7 @@ Environment=POETRY_VIRTUALENVS_IN_PROJECT=true
 Environment=PYTHONPATH=/usr/local/src/YCastAdvanced/
 Environment=PYTHONUNBUFFERED=1
 ExecStartPre=/usr/bin/poetry install --only=main
-ExecStart=/usr/bin/poetry run python3 -m ycast -c /var/www/ycast/stations.yml -d
+ExecStart=/usr/bin/poetry run ycast -c /var/www/ycast/stations.yml -d
 
 [Install]
 WantedBy=multi-user.target

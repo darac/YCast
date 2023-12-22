@@ -135,7 +135,7 @@ Specifically the following entries may be configured instead of a wildcard entry
 #### With built-in webserver
 
 You can run YCast by using the built-in development server of Flask (not recommended for
-production use, but should™ be enough for your private home use): `python -m ycast`
+production use, but should™ be enough for your private home use): `python -m ycast` or `poetry run ycast`
 
 While you can simply run YCast with root permissions listening on all interfaces on port 80,
  this may not be desired for various reasons.
