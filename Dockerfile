@@ -91,7 +91,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV
 
 WORKDIR /app
-COPY poetry.lock pyproject ./
+COPY poetry.lock pyproject.toml ./
 COPY ycast ycast/
 COPY LICENSE.txt README.md bootstrap.sh ./
 
