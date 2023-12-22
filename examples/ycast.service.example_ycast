@@ -9,7 +9,12 @@ Group=ycast
 WorkingDirectory=/home/ycast
 StandardOutput=file:/home/ycast/service.log
 StandardError=file:/home/ycast/ycast.log
-ExecStart=/usr/bin/python3 -m ycast -l 127.0.0.1 -p 8010 -d -c /home/ycast/.ycast/stations.yml
+Environment=POETRY_NO_INTERACTION=1
+Environment=POETRY_VIRTUALENVS_IN_PROJECT=true
+Environment=PYTHONPATH=/usr/local/src/YCastAdvanced/
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/usr/bin/poetry install --only=main
+ExecStart=/usr/bin/poetry run python3 -m ycast -l 127.0.0.1 -p 8010 -d -c /home/ycast/.config/ycast/stations.yml
 
 [Install]
 WantedBy=multi-user.target

@@ -98,7 +98,7 @@ def get_cache_path(cache_name: str | None) -> Path:
 def get_var_path() -> Path:
     assert VAR_PATH is not None
     try:
-        VAR_PATH.mkdir(exist_ok=True)
+        VAR_PATH.mkdir(exist_ok=True, parents=True)
     except PermissionError:
         LOG.exception(
             "Could not create cache folders (%s) because of access permissions", VAR_PATH
@@ -130,11 +130,11 @@ def get_stations_file() -> Path:
 
 def set_stations_file(stations_file: Path) -> None:
     global stations_file_by_config
-    if stations_file:
+    if stations_file and stations_file.exists():
         stations_file_by_config = stations_file
 
 
-def get_checksum(feed: str, charlimit: int = 12) -> str:
+def get_checksum(feed: str, char_limit: int = 12) -> str:
     hash_feed = feed.encode()
     hash_object = hashlib.md5(hash_feed)  # noqa: S324
     digest = hash_object.digest()
@@ -142,7 +142,7 @@ def get_checksum(feed: str, charlimit: int = 12) -> str:
     for i, b in enumerate(digest[8:]):
         xor_fold[i] ^= b
     digest_xor_fold = "".join(format(x, "02x") for x in bytes(xor_fold))
-    return str(digest_xor_fold[:charlimit]).upper()
+    return str(digest_xor_fold[:char_limit]).upper()
 
 
 def read_yaml_file(path: Path) -> dict | None:

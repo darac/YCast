@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from types import FrameType
 
 logging.basicConfig(
-    format="%(asctime)s %(levelname)s: %(message)s",
+    format="%(asctime)s %(levelname)-8s [%(name)s]: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
     level=logging.INFO,
 )
@@ -43,11 +43,7 @@ def launch_server() -> None:
         type=lambda p: Path(p).absolute(),
     )
     parser.add_argument(
-        "-l",
-        action="store",
-        dest="address",
-        help="Listen address",
-        default="0.0.0.0",  # noqa: S104
+        "-l", action="store", dest="address", help="Listen address", default="127.0.0.1"
     )
     parser.add_argument(
         "-p", action="store", dest="port", type=int, help="Listen port", default=80
@@ -56,7 +52,7 @@ def launch_server() -> None:
     arguments = parser.parse_args()
     LOG.info("YCast (%s) server starting", __version__)
     if arguments.debug:
-        LOG.setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
         LOG.debug("Debug logging enabled")
     else:
         logging.getLogger("werkzeug").setLevel(logging.WARNING)

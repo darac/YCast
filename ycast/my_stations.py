@@ -18,6 +18,7 @@ class Station:
         self.name = name
         self.url = url
         self.tag = category
+        self.category = category
         self.icon = icon
 
     def to_vtuner(self: "Station") -> vtuner.Station:
@@ -44,9 +45,11 @@ def get_stations_yaml() -> dict | None:
 
     my_recently_station = get_recent_stations()
     my_stations = generic.read_yaml_file(generic.get_stations_file())
+    if my_stations is None:
+        return None
     if my_stations and my_recently_station:
         my_stations.update(my_recently_station)
-    else:
+    elif my_recently_station:
         return my_recently_station
     return my_stations
 

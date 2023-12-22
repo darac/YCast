@@ -1,9 +1,5 @@
 [tool.poetry]
-    authors = [
-        "Thomas Hanika <thomas@hanika-co.de>",
-        "darac <darac+github@darac.org.uk>",
-        "milaq <micha.laqua@gmail.com>",
-    ]
+    authors = ["milaq <micha.laqua@gmail.com>"]
     classifiers = [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -16,6 +12,7 @@
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
     description = "Self hosted vTuner internet radio service emulation"
+    exclude = ["contrib", "docs", "tests"]
     keywords = [
         'avr',
         'denon',
@@ -31,6 +28,10 @@
         'ycast',
     ]
     license = "GPL-3.0-or-later"
+    maintainers = [
+        "Thomas Hanika <thomas@hanika-co.de>",
+        "darac <darac+github@darac.org.uk>",
+    ]
     name = "ycast"
     readme = "README.md"
     repository = "https://github.com/darac/YCast"
@@ -41,7 +42,6 @@
         Flask              = "^3.0.0"
         Pillow             = "^10.1.0"
         PyYAML             = "^6.0.1"
-        dnspython          = "^2.4.2"
         importlib-metadata = { version = "^1.0", python = "<3.8" }
         python             = "^3.10"
         requests           = "^2.31.0"

@@ -70,7 +70,7 @@ def get_directories_page(
         return page
     for directory in get_paged_elements(directories, request.args):
         vtuner_directory = vtuner.Directory(
-            directory.displayname,
+            directory.display_name,
             url_for(subdir, _external=True, directory=directory.name),
             directory.item_count,
         )
@@ -131,10 +131,13 @@ def get_paged_elements(items: Sequence, request_args: dict) -> Sequence:
 def get_station_by_id(
     station_id: str, additional_info: bool = False
 ) -> radiobrowser.Station | my_stations.Station | None:
+    LOG.debug("Looking for station %s", station_id)
     station_id_prefix = generic.get_station_id_prefix(station_id)
     if station_id_prefix == my_stations.ID_PREFIX:
+        LOG.debug("  This is one of MY stations")
         return my_stations.get_station_by_id(station_id)
     if station_id_prefix == radiobrowser.ID_PREFIX:
+        LOG.debug("  This is a generic station")
         station = radiobrowser.get_station_by_id(station_id)
         if additional_info and station is not None:
             station.get_playable_url()
@@ -244,7 +247,7 @@ def landing_api(path: str) -> ResponseReturnValue:
 
 
 @app.route("/", defaults={"path": ""}, methods=["GET", "POST"])
-def landing_root(_path: str = "") -> ResponseReturnValue:
+def landing_root(path: str = "") -> ResponseReturnValue:  # noqa: ARG001
     return render_template("index.html")
 
 

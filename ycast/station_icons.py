@@ -24,10 +24,10 @@ def get_icon(station: radiobrowser.Station | my_stations.Station) -> bytes | Non
     if not cache_path:
         return None
 
-    # make icon filename from favicon-adress
+    # make icon filename from favicon-address
     station_icon_file = cache_path / (generic.get_checksum(station.icon) + ".jpg")
     if not station_icon_file.exists():
-        logging.debug(
+        LOG.debug(
             "Station icon cache miss. Fetching and converting station icon for station id '%s'",
             station.id,
         )
