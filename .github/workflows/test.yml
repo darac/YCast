@@ -17,10 +17,10 @@ jobs:
     strategy:
       matrix:
         python_version:
-          - 3.8
-          - 3.9
-          - 3.10
-          - 3.11
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,14 +39,21 @@ jobs:
         run:
           echo "PROJECT_VERSION=$(poetry version --short)" >> "$GITHUB_OUTPUT"
 
-      - name: Build docker image
-        run:
-          docker build . --push -t ghcr.io/darac/ycast:${{ steps.proj-version.outputs.PROJECT_VERSION }}-py${{ matrix.python_version }}
-          --annotation "org.opencontainers.image.created=$(date --rfc-3339=seconds)"
-          --annotation "org.opencontainers.image.authors=${{ github.actor }}"
-          --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}"
-          --annotation "org.opencontainers.image.version=${{ steps.proj-version.outputs.PROJECT_VERSION }}"
-          --annotation "org.opencontainers.image.licenses=GPL-3.0-or-later"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          tags: |
+            ghcr.io/darac/ycast:${{ steps.proj-version.outputs.PROJECT_VERSION }}-py${{ matrix.python_version }}
+          annotations: |
+            org.opencontainers.image.created=$(date --rfc-3339=seconds)
+            org.opencontainers.image.authors=${{ github.actor }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.version=${{ steps.proj-version.outputs.PROJECT_VERSION }}
+            org.opencontainers.image.licenses=GPL-3.0-or-later
+          push: true
 
       # TODO
       # - name: Smoke test docker image
@@ -56,10 +63,10 @@ jobs:
     strategy:
       matrix:
         python_version:
-          - 3.8
-          - 3.9
-          - 3.10
-          - 3.11
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
     steps:
       - uses: actions/checkout@v4
         with:
