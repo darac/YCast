@@ -58,17 +58,18 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     nano
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
+# TODO: Ideally, we'd do:
+#   RUN --mount=type=cache,target=/root/.cache curl ...
+# But this doesn't play well with multi-arch builds
 # The --mount will mount the buildx cache directory to where
 # Poetry and Pip store their cache so that they can re-use it
-RUN --mount=type=cache,target=/root/.cache \
-    curl -sSL https://install.python-poetry.org | python -
+RUN curl -sSL https://install.python-poetry.org | python -
 
 # used to init dependencies
 WORKDIR /app
 COPY poetry.lock pyproject.toml ./
 # install runtime deps to $VIRTUAL_ENV
-RUN --mount=type=cache,target=/root/.cache \
-    poetry install --no-root --only main
+RUN poetry install --no-root --only main
 
 ################################
 # PRODUCTION
@@ -103,13 +104,12 @@ COPY LICENSE.txt README.md bootstrap.sh ./
 # YC_PORT port ycast server listens to, e.g. 80
 #
 ENV YC_VERSION master
-ENV YC_STATIONS /opt/ycast/stations.yml
+ENV YC_STATIONS /app/stations.yml
 ENV YC_DEBUG OFF
 ENV YC_PORT 80
 
 # Install the app itself
-RUN --mount=type=cache,target=/root/.cache \
-    poetry install --only=main
+RUN poetry install --only=main
 
 #
 # Docker Container should be listening for AVR on port 80

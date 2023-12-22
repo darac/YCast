@@ -8,10 +8,10 @@
 #YC_PORT port ycast server listens to, e.g. 80
 
 if [ "$YC_DEBUG" = "OFF" ]; then
-	poetry run ycast -c "$YC_STATIONS" -p "$YC_PORT"
+	poetry run ycast -c "$YC_STATIONS" -p "${YC_PORT:-80}"
 
 elif [ "$YC_DEBUG" = "ON" ]; then
-	poetry run ycast -c "$YC_STATIONS" -p "$YC_PORT" -d
+	poetry run ycast -c "$YC_STATIONS" -p "${YC_PORT:-80}" -d
 
 else
 	/bin/sh
