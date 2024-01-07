@@ -2,10 +2,10 @@
 
 ![Yamaha AV Receiver](https://image.ibb.co/iBY6hq/yamaha.png)
 
-[![PyPI latest version](https://img.shields.io/pypi/v/ycast?color=success)](https://pypi.org/project/ycast/) [![GitHub latest version](https://img.shields.io/github/v/release/darac/YCast?color=success&label=github&sort=semver)](https://github.com/darac/YCast/releases) [![Python version](https://img.shields.io/pypi/pyversions/ycast)](https://www.python.org/downloads/) [![License](https://img.shields.io/pypi/l/ycast)](https://www.gnu.org/licenses/gpl-3.0.en.html) [![GitHub issues](https://img.shields.io/github/issues/darac/ycast)](https://github.com/darac/YCast/issues)
+[![PyPI latest version](https://img.shields.io/pypi/v/ycast?color=success)](https://pypi.org/project/ycast/) [![GitHub latest version](https://img.shields.io/github/v/release/ThHanika/YCast?color=success&label=github&sort=semver)](https://github.com/ThHanika/YCast/releases) [![Python version](https://img.shields.io/pypi/pyversions/ycast)](https://www.python.org/downloads/) [![License](https://img.shields.io/pypi/l/ycast)](https://www.gnu.org/licenses/gpl-3.0.en.html) [![GitHub issues](https://img.shields.io/github/issues/ThHanika/ycast)](https://github.com/ThHanika/YCast/issues)
 
 ```bash
-pip3 install git+https://github.com/darac/YCast
+pip3 install git+https://github.com/ThHanika/YCast
 ```
 
 ## The advanced features
