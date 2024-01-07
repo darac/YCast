@@ -126,7 +126,8 @@ jobs:
       - uses: chartboost/ruff-action@v1
 
       - run:
-          poetry run pytest --cov --cov-report=xml:coverage.xml
+          poetry run pytest --cov
+          --cov-report=xml:coverage.xml
           --junit-xml=junit.xml
 
       - name: SonarCloud Scan
