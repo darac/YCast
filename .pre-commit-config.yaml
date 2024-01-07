@@ -1,0 +1,52 @@
+---
+# spell-checker: disable
+# See https://pre-commit.com/ for usage and config
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-toml
+        stages:
+          - commit
+        types:
+          - toml
+      - id: check-xml
+        stages:
+          - commit
+        types:
+          - xml
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
+        stages:
+          - commit
+        types:
+          - yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.1
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.8
+    hooks:
+      - id: ruff
+      - id: ruff-format
+        args:
+          - --check
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.7.1" # Use the sha / tag you want to point at
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - "types-PyYAML>=6.0.12.12"
+          - "types-requests>=2.31.0.10"
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.7.0
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
